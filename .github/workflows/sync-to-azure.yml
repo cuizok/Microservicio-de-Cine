@@ -3,22 +3,32 @@ name: sincronizar a devops
 on:
   push:
     branches:
-      - main
+      - main  # Cambia "main" por la rama que desees sincronizar
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Checkout el código del repositorio de GitHub
     - name: Checkout source code
       uses: actions/checkout@v3
-    - name: configurar credenciales 
+
+    # 2. Configuración de usuario para Git
+    - name: Configurar credenciales
       run: |
         git config --global user.name "cuizok"
         git config --global user.email "cuitlahuac0920@gmail.com"
-    - name: Agregar azure remotamente
+
+    # 3. Configurar el PAT para acceder a Azure DevOps
+    - name: Configurar acceso a Azure DevOps
       run: |
-        git remote add azure https://21002222@dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto 
+        git config --global credential.helper store
+        echo "https://21002222:${{ secrets.AZURE_DEVOPS_PAT }}@dev.azure.com" > ~/.git-credentials
+
+    # 4. Agregar Azure DevOps como remoto y hacer el push
+    - name: Agregar Azure remoto y hacer push
+      run: |
+        git remote add azure https://dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto
         git push azure main --force
-      env:
-        AZURE_DEVOPS_PAT: 6Koee9WRALAP7xIxEoWngq19DCaVP9VxvYSU3cgAE9BKmgByyCv8JQQJ99AKACAAAAAgl2BPAAASAZDOMJDy
+
