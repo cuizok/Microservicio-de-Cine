@@ -21,4 +21,4 @@ jobs:
         git remote add azure https://21002222@dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto 
         git push azure main --force
       env:
-        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        AZURE_DEVOPS_PAT: 6Koee9WRALAP7xIxEoWngq19DCaVP9VxvYSU3cgAE9BKmgByyCv8JQQJ99AKACAAAAAgl2BPAAASAZDOMJDy
