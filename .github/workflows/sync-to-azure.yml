@@ -1,0 +1,24 @@
+name: sincronizar a devops
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    - name: configurar credenciales 
+      run: |
+        git config --global user.name "cuizok"
+        git config --global user.email "cuitlahuac0920@gmail.com"
+    - name: Agregar azure remotamente
+      run: |
+        git remote add azure https://21002222@dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto 
+        git push azure main --force
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
