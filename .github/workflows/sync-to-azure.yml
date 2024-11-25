@@ -36,3 +36,13 @@ jobs:
       run: |
         git remote add azure https://dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto
         git push azure main --force
+  
+    # 6. Enviar una notificación a Microsoft Teams
+    - name: Notificar cambios en GitHub a Teams
+      run: |
+        curl -X POST -H 'Content-Type: application/json' \
+        -d '{
+              "text": "Se ha sincronizado un cambio en el repositorio de GitHub con Azure DevOps: *Nuevo commit* en la rama main."
+            }' \
+        ${{ secrets.TEAMS_WEBHOOK_URL }}
+
