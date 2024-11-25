@@ -14,21 +14,25 @@ jobs:
     - name: Checkout source code
       uses: actions/checkout@v3
 
-    # 2. Configuración de usuario para Git
-    - name: Configurar credenciales
+    # 2. Hacer un fetch completo para evitar el error de shallow
+    - name: Hacer fetch completo de Git
+      run: |
+        git fetch --unshallow
+
+    # 3. Configuración de usuario para Git
+    - name: Configurar credenciales de usuario
       run: |
         git config --global user.name "cuizok"
         git config --global user.email "cuitlahuac0920@gmail.com"
 
-    # 3. Configurar el PAT para acceder a Azure DevOps
+    # 4. Configuración del helper de credenciales de Git y el archivo de credenciales
     - name: Configurar acceso a Azure DevOps
       run: |
         git config --global credential.helper store
         echo "https://21002222:${{ secrets.AZURE_DEVOPS_PAT }}@dev.azure.com" > ~/.git-credentials
 
-    # 4. Agregar Azure DevOps como remoto y hacer el push
+    # 5. Agregar Azure DevOps como remoto y hacer el push
     - name: Agregar Azure remoto y hacer push
       run: |
         git remote add azure https://dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto
         git push azure main --force
-
