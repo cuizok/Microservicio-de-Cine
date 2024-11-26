@@ -34,7 +34,7 @@ jobs:
     # 5. Agregar Azure DevOps como remoto y hacer el push
     - name: Agregar Azure remoto y hacer push
       run: |
-        git remote add azure https://dev.azure.com/21002222/Proyecto%20Don%20Galleto/_git/Proyecto%20Don%20Galleto
+        git remote add azure https://21002222@dev.azure.com/21002222/Microservicio%20de%20Cine/_git/Microservicio%20de%20Cine
         git push azure main --force
   
     # 6. Enviar una notificación a Microsoft Teams
